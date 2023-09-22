@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 4868463840223086792}
   - component: {fileID: 5964428322620460624}
   - component: {fileID: 7587282575019782766}
-  - component: {fileID: 3415865029719648932}
-  m_Layer: 0
+  - component: {fileID: 6104039863101433000}
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Cube
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &3415865029719648932
+--- !u!114 &6104039863101433000
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,10 +123,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 310589708027248144}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5938eb5f4ade489c8c15a22c524b2d52, type: 3}
+  m_Script: {fileID: 11500000, guid: f148ec3b5e634a52b1a076acb6836259, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  _rigidbody: {fileID: 7587282575019782766}
+  _idText: {fileID: 7383838931250391146}
 --- !u!1 &961652664323059046
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,7 +139,7 @@ GameObject:
   - component: {fileID: 5263776132841522761}
   - component: {fileID: 4716453899964027648}
   - component: {fileID: 7383838931250391146}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +193,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -273,7 +274,8 @@ GameObject:
   - component: {fileID: 7169029207379414974}
   - component: {fileID: 9009869132052420376}
   - component: {fileID: 5755477427406527363}
-  m_Layer: 0
+  - component: {fileID: 8291922966712202415}
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -361,3 +363,15 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &8291922966712202415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8702265755922429232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94e285741a0eedf4a97cadbfcc76392a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

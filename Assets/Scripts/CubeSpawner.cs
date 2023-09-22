@@ -1,26 +1,30 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class CubeSpawner : MonoBehaviour
 {
-    public GameObject cubePrefab; // Префаб куба
+    public Cube cubePrefab; // Префаб куба
     public Transform spawnZone; // Зона спавна
     public Transform parent;
 
     public int numberOfCubes = 10; // Количество кубов, которые нужно создать
 
-    void Start()
+    public Action<int> OnCubeDestroys;
+    public void Init()
     {
-        SpawnCubes();
     }
-
-    void SpawnCubes()
+    public Dictionary<int, Cube> SpawnCubes()
     {
+        var cubes = new Dictionary<int, Cube>();
         for (int i = 0; i < numberOfCubes; i++)
         {
             // Создаем куб из префаба
-            GameObject cube = Instantiate(cubePrefab, parent);
+            var cube = Instantiate(cubePrefab, parent);
+            cube.SetNumber(i);
+            cube.OnDestroy += (id) => OnCubeDestroys?.Invoke(id);
 
             // Устанавливаем позицию куба в случайном месте в зоне спавна
             Vector3 spawnPosition = new Vector3(
@@ -30,6 +34,12 @@ public class CubeSpawner : MonoBehaviour
             );
 
             cube.transform.position = spawnPosition;
+            
+            cubes.Add(i, cube);
         }
+
+        return cubes;
     }
+
+
 }

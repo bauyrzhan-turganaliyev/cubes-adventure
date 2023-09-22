@@ -1,43 +1,28 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class CubeMovement : MonoBehaviour
 {
     public float moveSpeed = 5f; // Скорость перемещения кубов
-
-    private Rigidbody rb;
-    private Vector3 velocity;
-    private bool isInit;
-
-    private void Start()
+    private Dictionary<int, Cube> _cubes;
+    
+    public void Init()
     {
-        Invoke("Begin", 2);
+        _cubes = new Dictionary<int, Cube>();
     }
-
-    private void Begin()
+    
+    public void PrepareToMove(Dictionary<int, Cube> cubes)
     {
-        rb = GetComponent<Rigidbody>();
-        Vector3 randomDirection = Random.insideUnitSphere.normalized;
-        velocity = randomDirection * moveSpeed;
-        velocity.y = 0;
-        rb.AddForce(velocity, ForceMode.Force);
-        isInit = true;
+        _cubes = cubes;
     }
-    private void FixedUpdate()
+    
+    public void Move()
     {
-        if (!isInit) return;
-        rb.velocity = new Vector3(velocity.x, rb.velocity.y, velocity.z);
-    }
-    void OnCollisionEnter(Collision collision)
-    {
-        ReflectProjectile(collision.contacts[0].normal);
-    }
-
-    private void ReflectProjectile(Vector3 reflectVector)
-    {
-        if (!isInit) return;
-        velocity = Vector3.Reflect(velocity, reflectVector);
-        rb.velocity = new Vector3(velocity.x, rb.velocity.y, velocity.z);
+        foreach (var cube in _cubes)
+        {
+            cube.Value.Move(moveSpeed);
+        }
     }
 }
