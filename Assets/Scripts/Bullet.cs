@@ -6,17 +6,19 @@ public class Bullet : MonoBehaviour
     public float lifetime = 2f; // Bullet lifetime (in seconds)
 
     private float timer = 0f;
+    private Vector3 _targetPoint;
 
     // Set the target point when creating the bullet
     public void SetLookAtTarget(Vector3 targetPoint)
     {
-        transform.LookAt(targetPoint);
+        _targetPoint = targetPoint;
+        transform.LookAt(_targetPoint);
     }
 
-    void Update()
+    private void Update()
     {
         transform.Translate(Vector3.forward * speed * Time.deltaTime, Space.Self);
-        
+
         timer += Time.deltaTime;
         if (timer >= lifetime)
         {
@@ -26,10 +28,6 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        // Handle collision logic here if needed
-        // For example, you can check if the bullet hits an enemy, and apply damage.
-
-        // Destroy the bullet on collision
         Destroy(gameObject);
     }
 }

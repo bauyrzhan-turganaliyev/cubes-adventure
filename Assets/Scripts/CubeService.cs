@@ -7,13 +7,14 @@ public class CubeService : MonoBehaviour
 {
     [SerializeField] private CubeSpawner _cubeSpawner;
     [SerializeField] private CubeMovement _cubeMovement;
+    [SerializeField] private CubeEatService _cubeEatService;
+    
     public Dictionary<int, Cube> Cubes;
 
     public void Init()
     {
         Cubes = new  Dictionary<int, Cube>();
 
-        _cubeSpawner.OnCubeDestroys += RemoveCubeByIndex;
         _cubeSpawner.Init();
         _cubeMovement.Init();
     }
@@ -35,7 +36,14 @@ public class CubeService : MonoBehaviour
     public void Spawn()
     {
         Cubes = _cubeSpawner.SpawnCubes();
-        _cubeMovement.PrepareToMove(Cubes);
+
+        foreach (var pair in Cubes)
+        {
+            pair.Value.OnDestroyed += RemoveCubeByIndex;
+            pair.Value.OnAte += (id) => _cubeEatService.SetTarget(Cubes[id]);
+        }
+        
+        _cubeMovement.SetCubes(Cubes);
     }
 
     public void Move()
@@ -43,9 +51,17 @@ public class CubeService : MonoBehaviour
         _cubeMovement.Move();
     }
 
-    public Vector3 GetRandomCube()
+    public void Eat()
+    {
+        _cubeEatService.SetCubes(Cubes);
+        var cube = GetRandomCube();
+        cube.Grow();
+        _cubeEatService.SetTarget(cube);
+    }
+
+    public Cube GetRandomCube()
     {
         Random rand = new Random();
-        return Cubes.ElementAt(rand.Next(0, Cubes.Count)).Value.gameObject.transform.position;
+        return Cubes.ElementAt(rand.Next(0, Cubes.Count)).Value;
     }
 }

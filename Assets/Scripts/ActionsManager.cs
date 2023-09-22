@@ -4,26 +4,19 @@ using UnityEngine.UI;
 
 public class ActionsManager : MonoBehaviour
 {
-    [SerializeField] private Button _stopButton;
-    [SerializeField] private Button _spawnButton;
-    [SerializeField] private Button _moveButton;
-    [SerializeField] private Button _shootButton;
-    [SerializeField] private Button _eatButton;
-
     [SerializeField] private CubeService _cubeService;
     [SerializeField] private ShootService _shootService;
 
     [SerializeField] private Transform _bulletStart;
+    private MessageBus _messageBus;
 
-    public void Awake()
+    public void Init(MessageBus messageBus)
     {
-        _cubeService.Init();
+        _messageBus = messageBus;
+
+        _messageBus.OnChangeGameAction += ChangeGameCurrentAction;
         
-        _stopButton.onClick.AddListener(()=> ChangeGameCurrentAction(GameCurrentAction.None));
-        _spawnButton.onClick.AddListener(()=> ChangeGameCurrentAction(GameCurrentAction.Spawning));
-        _moveButton.onClick.AddListener(()=> ChangeGameCurrentAction(GameCurrentAction.Moving));
-        _shootButton.onClick.AddListener(()=> ChangeGameCurrentAction(GameCurrentAction.Shooting));
-        _eatButton.onClick.AddListener(()=> ChangeGameCurrentAction(GameCurrentAction.Eating));
+        _cubeService.Init();
     }
 
     private void ChangeGameCurrentAction(GameCurrentAction newAction)
@@ -39,12 +32,15 @@ public class ActionsManager : MonoBehaviour
                 _cubeService.Move();
                 break;
             case GameCurrentAction.Shooting:
-                _shootService.ShootBullet(_bulletStart.position, _cubeService.GetRandomCube());
+                _shootService.ShootBullet(_bulletStart.position, _cubeService.GetRandomCube().transform.position);
                 break;
             case GameCurrentAction.Eating:
+                _cubeService.Eat();
                 break;
         }
     }
+
+
 }
 
 public enum GameCurrentAction

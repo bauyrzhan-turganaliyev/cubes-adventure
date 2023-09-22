@@ -24,7 +24,6 @@ public class CubeSpawner : MonoBehaviour
             // Создаем куб из префаба
             var cube = Instantiate(cubePrefab, parent);
             cube.SetNumber(i);
-            cube.OnDestroy += (id) => OnCubeDestroys?.Invoke(id);
 
             // Устанавливаем позицию куба в случайном месте в зоне спавна
             Vector3 spawnPosition = new Vector3(

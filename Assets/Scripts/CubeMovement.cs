@@ -13,7 +13,7 @@ public class CubeMovement : MonoBehaviour
         _cubes = new Dictionary<int, Cube>();
     }
     
-    public void PrepareToMove(Dictionary<int, Cube> cubes)
+    public void SetCubes(Dictionary<int, Cube> cubes)
     {
         _cubes = cubes;
     }
