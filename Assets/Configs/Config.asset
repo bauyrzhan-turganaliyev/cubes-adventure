@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cba3bad95a38407b8de0493aa5dcbe0b, type: 3}
   m_Name: Config
   m_EditorClassIdentifier: 
-  SpawnCount: 0
-  CubeSpeed: 5
-  AutoShoot: 0
-  BulletSpeed: 0
-  BulletLifetime: 0
+  IsMoveWhileShoot: 0
+  MinSpawnCount: 1
+  MaxSpawnCount: 10
+  CubeSpeed: 3
+  AutoShoot: 1
+  BulletSpeed: 10
+  BulletLifetime: 3
